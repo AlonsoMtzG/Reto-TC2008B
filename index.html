@@ -166,8 +166,7 @@
                             const id = data.frames[frameCounter].cars[i].id;
                             const x = data.frames[frameCounter].cars[i].x;
                             const z = data.frames[frameCounter].cars[i].z;
-                            const dir =
-                                data.frames[frameCounter].cars[i].direction;
+                            const dir = data.frames[frameCounter].cars[i].dir;
 
                             let car = scene.getObjectByName(id);
                             if (!car) {
