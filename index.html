@@ -138,7 +138,7 @@
                     });
 
                 // READ JSON DATA
-                readTextFile("./simul_data.json", function (text) {
+                readTextFile("./data.json", function (text) {
                     data = JSON.parse(text);
                     dataReady = true;
                 });
@@ -166,7 +166,8 @@
                             const id = data.frames[frameCounter].cars[i].id;
                             const x = data.frames[frameCounter].cars[i].x;
                             const z = data.frames[frameCounter].cars[i].z;
-                            const dir = data.frames[frameCounter].cars[i].dir;
+                            const dir =
+                                data.frames[frameCounter].cars[i].direction;
 
                             let car = scene.getObjectByName(id);
                             if (!car) {
