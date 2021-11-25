@@ -173,6 +173,7 @@
                                 let car = new SportsCar(x, z, dir);
                                 car.name = id;
                                 scene.add(car);
+                                console.log("Added Car #" + car.name);
                             } else {
                                 car.setPosition(x, z);
                                 car.setDirection(dir);
@@ -579,8 +580,9 @@
                             model.setOnFloor();
 
                             // MODEL-MENU
-                            const guiSportCarMenu =
-                                gui.addFolder("Sport Car Menu");
+                            const guiSportCarMenu = gui.addFolder(
+                                "Sport Car #" + model.name + " Menu"
+                            );
                             // GUI-Model
                             guiSportCarMenu
                                 .add(model, "visible")
