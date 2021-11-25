@@ -181,7 +181,7 @@
                     this.size = size;
                     const geometry = new THREE.PlaneGeometry(size, size);
                     const roadTexture = new THREE.TextureLoader().load(
-                        "./assets/img/road.jpg"
+                        "./assets/img/street-texture.jpg"
                     );
                     roadTexture.wrapS = THREE.RepeatWrapping;
                     roadTexture.wrapT = THREE.RepeatWrapping;
@@ -825,7 +825,7 @@
                         depth
                     );
                     const texture = new THREE.TextureLoader().load(
-                        "./assets/img/building.jpg"
+                        "./assets/img/front-texture.jpg"
                     );
                     const textureRoof = new THREE.TextureLoader().load(
                         "./assets/img/roof-texture-real.jpg"
