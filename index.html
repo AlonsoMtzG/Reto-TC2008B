@@ -318,6 +318,7 @@
 
                 if (dataReady) {
                     let xPlus = 0;
+                    let zPlus = 0;
                     if (frameCounter < data.frames.length) {
                         for (
                             let i = 0;
@@ -328,12 +329,21 @@
                             const dir = data.frames[frameCounter].cars[i].dir;
                             if (dir === 180) {
                                 xPlus = -5;
+                                zPlus = 85;
+                            } else if (dir === 90) {
+                                zPlus = -3;
+                                xPlus = -20;
+                            } else if (dir === 270) {
+                                zPlus = 0;
+                                xPlus = 130;
                             } else {
-                                xPlus = 1;
+                                xPlus = 0;
+                                zPlus = 0;
                             }
                             const x =
                                 data.frames[frameCounter].cars[i].x + xPlus;
-                            const z = data.frames[frameCounter].cars[i].z;
+                            const z =
+                                data.frames[frameCounter].cars[i].z + zPlus;
 
                             let car = scene.getObjectByName(id);
                             if (!car) {
