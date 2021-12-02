@@ -1120,42 +1120,42 @@
                     this.material = [
                         new THREE.MeshBasicMaterial({
                             map: new THREE.TextureLoader().load(
-                                "./assets/img/skybox/elyvisions/sh_ft.png"
+                                "./assets/img/skybox/elyvisions/daylight_lf.png" // BIEN
                             ),
                             side: THREE.DoubleSide,
                         }),
                         new THREE.MeshBasicMaterial({
                             map: new THREE.TextureLoader().load(
-                                "./assets/img/skybox/elyvisions/sh_bk.png"
+                                "./assets/img/skybox/elyvisions/daylight_rt.png" // BIEN
                             ),
                             side: THREE.DoubleSide,
                         }),
                         new THREE.MeshBasicMaterial({
                             map: new THREE.TextureLoader().load(
-                                "./assets/img/skybox/elyvisions/sh_up.png"
+                                "./assets/img/skybox/elyvisions/daylight_up.png" // BIEN
                             ),
                             side: THREE.DoubleSide,
                         }),
                         new THREE.MeshBasicMaterial({
                             map: new THREE.TextureLoader().load(
-                                "./assets/img/skybox/elyvisions/sh_dn.png"
+                                "./assets/img/skybox/elyvisions/daylight_dn.png" // BIEN
                             ),
                             side: THREE.DoubleSide,
                         }),
                         new THREE.MeshBasicMaterial({
                             map: new THREE.TextureLoader().load(
-                                "./assets/img/skybox/elyvisions/sh_rt.png"
+                                "./assets/img/skybox/elyvisions/daylight_ft.png" // MAL
                             ),
                             side: THREE.DoubleSide,
                         }),
                         new THREE.MeshBasicMaterial({
                             map: new THREE.TextureLoader().load(
-                                "./assets/img/skybox/elyvisions/sh_lf.png"
+                                "./assets/img/skybox/elyvisions/daylight_bk.png" // MAL
                             ),
                             side: THREE.DoubleSide,
                         }),
                     ];
-                    this.scale.set(850, 850, 850);
+                    this.scale.set(12000, 12000, 12000);
                     this.position.set(0, 0, 100);
                 }
                 setDoubleSide(value) {
@@ -1170,7 +1170,7 @@
                     // this.geometry.computeBoundingBox();
                     // const bBox = this.geometry.boundingBox;
                     // this.position.y = -bBox.min.y;
-                    this.position.y = 250;
+                    this.position.y = 50;
                 }
             }
 
