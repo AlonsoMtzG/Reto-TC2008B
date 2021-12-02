@@ -905,7 +905,7 @@
                             // CHILDREN
                             model.add(model.solid);
                             model.add(model.wire);
-                            scene.add(model);
+                            //scene.add(model);
                             //model.setOnFloor();
                         },
                         // called when loading is in progresses
@@ -1084,7 +1084,7 @@
                             // CHILDREN
                             model.add(model.solid);
                             model.add(model.wire);
-                            scene.add(model);
+                            //scene.add(model);
                             //model.setOnFloor();
                         },
                         // called when loading is in progresses
@@ -1174,23 +1174,113 @@
                 }
             }
 
+            class BuildingsLow extends THREE.Group {
+                constructor(x = 0, z = 0) {
+                    super();
+                    // Yellow Building
+                    this.buildingLow1 = new Cube(30, 0xffb749);
+                    this.buildingLow1.position.set(-55, 0, -150);
+                    this.buildingLow1.scale.set(1, 2.25, 1);
+                    this.buildingLow1.setOnFloor();
+
+                    // Pink Building
+                    this.buildingLow2 = new Cube(30, 0xff497b);
+                    this.buildingLow2.position.set(-55, 0, -115);
+                    this.buildingLow2.scale.set(0.7, 2, 0.7);
+                    this.buildingLow2.setOnFloor();
+
+                    // Orange Building
+                    this.buildingLow3 = new Cube(30, 0xff5a49);
+                    this.buildingLow3.position.set(-55, 0, -70);
+                    this.buildingLow3.scale.set(0.7, 2.1, 1.3);
+                    this.buildingLow3.setOnFloor();
+
+                    // Blue Building
+                    this.buildingLow4 = new Cube(30, 0x49a1ff);
+                    this.buildingLow4.position.set(-63, 0, -20);
+                    this.buildingLow4.scale.set(1, 0.5, 1.3);
+                    this.buildingLow4.position.y = 8;
+
+                    // Blue Building (Gray Floor)
+                    this.buildingLow4Floor = new Cube(30, 0xc0c0c0);
+                    this.buildingLow4Floor.position.set(-63, 0, -20);
+                    this.buildingLow4Floor.scale.set(1.5, 0.07, 1.7);
+                    this.buildingLow4Floor.position.y = 0;
+
+                    this.add(this.buildingLow1);
+                    this.add(this.buildingLow2);
+                    this.add(this.buildingLow3);
+                    this.add(this.buildingLow4);
+                    this.add(this.buildingLow4Floor);
+
+                    //scene.add(this);
+                    this.position.set(x, 0, z);
+                }
+            }
+
+            class CompleteSceneHIGH extends THREE.Group {
+                constructor() {
+                    super();
+                    this.buildingHIGH1 = new Buildings(42, -108);
+
+                    this.buildingHIGH2 = new Buildings(42, 140);
+
+                    this.buildingHIGH3 = new Buildings(-49, 198);
+                    this.buildingHIGH3.rotation.y = 180 * (Math.PI / 180);
+
+                    this.buildingHIGH4 = new Buildings(-49, -50);
+                    this.buildingHIGH4.rotation.y = 180 * (Math.PI / 180);
+
+                    this.add(this.buildingHIGH1);
+                    this.add(this.buildingHIGH2);
+                    this.add(this.buildingHIGH3);
+                    this.add(this.buildingHIGH4);
+                }
+            }
+
+            class CompleteSceneLOW extends THREE.Group {
+                constructor() {
+                    super();
+                    this.buildingsCube1 = new BuildingsLow();
+                    this.buildingsCube2 = new BuildingsLow(0, 250);
+                    this.buildingsCube3 = new BuildingsLow(0, -155);
+                    this.buildingsCube3.rotation.y = 180 * (Math.PI / 180);
+                    this.buildingsCube4 = new BuildingsLow(-10, 85);
+                    this.buildingsCube4.rotation.y = 180 * (Math.PI / 180);
+
+                    this.add(this.buildingsCube1);
+                    this.add(this.buildingsCube2);
+                    this.add(this.buildingsCube3);
+                    this.add(this.buildingsCube4);
+                }
+            }
+
+            class ScenaryLOD extends THREE.LOD {
+                constructor(size = 1000) {
+                    super();
+
+                    // Buildings LOW
+                    this.low = new CompleteSceneLOW();
+                    //this.low = new BuildingsLow();
+
+                    this.high = new CompleteSceneHIGH();
+                    //this.high = new Buildings(42, -100);
+
+                    // CHILDREN
+                    this.addLevel(this.high, 250);
+                    this.addLevel(this.low, 450);
+                }
+            }
+
             class Scenary extends THREE.Group {
                 constructor(size = 1000) {
                     super();
                     this.axes = new Axes(size);
                     this.floor = new Floor(size);
 
+                    // LOD Elements
+                    this.lodElements = new ScenaryLOD();
                     // Elements
-                    this.buildings1 = new Buildings(42, -108);
-
-                    this.buildings2 = new Buildings(42, 140);
-
-                    this.buildings3 = new Buildings(-49, 198);
-                    this.buildings3.rotation.y = 180 * (Math.PI / 180);
-
-                    this.buildings4 = new Buildings(-49, -50);
-                    this.buildings4.rotation.y = 180 * (Math.PI / 180);
-
                     this.road1 = new Road(45, -110);
                     this.road2 = new Road(45, 110);
 
@@ -1209,6 +1299,7 @@
                     this.textureTraffic = true;
 
                     // CHILDREN
+                    this.add(this.lodElements);
                     this.add(this.axes);
                     this.add(this.sky);
                     this.add(this.floor);
@@ -1222,6 +1313,9 @@
                     this.trafficLight2.setWireframe(value);
                     this.road1.setWireframe(value);
                     this.road2.setWireframe(value);
+                }
+                printLevel() {
+                    console.log(this.lodElements.getCurrentLevel());
                 }
             }
         </script>
