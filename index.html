@@ -247,6 +247,7 @@
                 }
 
                 if (dataReady) {
+                    let xPlus = 0;
                     if (frameCounter < data.frames.length) {
                         for (
                             let i = 0;
@@ -254,9 +255,15 @@
                             i++
                         ) {
                             const id = data.frames[frameCounter].cars[i].id;
-                            const x = data.frames[frameCounter].cars[i].x;
-                            const z = data.frames[frameCounter].cars[i].z;
                             const dir = data.frames[frameCounter].cars[i].dir;
+                            if (dir === 180) {
+                                xPlus = -5;
+                            } else {
+                                xPlus = 1;
+                            }
+                            const x =
+                                data.frames[frameCounter].cars[i].x + xPlus;
+                            const z = data.frames[frameCounter].cars[i].z;
 
                             let car = scene.getObjectByName(id);
                             if (!car) {
@@ -587,7 +594,7 @@
                                 }
                             });
                             //model.rotation.y = Math.PI;
-                            model.scale.set(2, 2, 2);
+                            model.scale.set(3.5, 3.5, 3.5);
                             // CHILDREN
                             model.add(model.solid);
                             model.add(model.wire);
@@ -686,7 +693,7 @@
                     //const bBox = new THREE.Box3();
                     //bBox.setFromObject(this.solid);
                     //this.position.y = -bBox.min.y;
-                    this.position.y = 3.2;
+                    this.position.y = 7;
                 }
                 setPosition(x, z) {
                     this.x = x;
@@ -1097,6 +1104,76 @@
                 }
             }
 
+            class SkyBox extends THREE.Mesh {
+                constructor(size = 1) {
+                    super();
+                    this.size = size;
+                    this.doubleSide = false;
+                    this.rotate = false;
+                    this.geometry = new THREE.BoxGeometry(size, size, size);
+                    const texture = new THREE.TextureLoader().load(
+                        "./img/happy-face.jpg"
+                    );
+                    //texture.wrapS = THREE.RepeatWrapping;
+                    //texture.wrapT = THREE.RepeatWrapping;
+                    //texture.repeat.set(1, 1);
+                    this.material = [
+                        new THREE.MeshBasicMaterial({
+                            map: new THREE.TextureLoader().load(
+                                "./assets/img/skybox/elyvisions/sh_ft.png"
+                            ),
+                            side: THREE.DoubleSide,
+                        }),
+                        new THREE.MeshBasicMaterial({
+                            map: new THREE.TextureLoader().load(
+                                "./assets/img/skybox/elyvisions/sh_bk.png"
+                            ),
+                            side: THREE.DoubleSide,
+                        }),
+                        new THREE.MeshBasicMaterial({
+                            map: new THREE.TextureLoader().load(
+                                "./assets/img/skybox/elyvisions/sh_up.png"
+                            ),
+                            side: THREE.DoubleSide,
+                        }),
+                        new THREE.MeshBasicMaterial({
+                            map: new THREE.TextureLoader().load(
+                                "./assets/img/skybox/elyvisions/sh_dn.png"
+                            ),
+                            side: THREE.DoubleSide,
+                        }),
+                        new THREE.MeshBasicMaterial({
+                            map: new THREE.TextureLoader().load(
+                                "./assets/img/skybox/elyvisions/sh_rt.png"
+                            ),
+                            side: THREE.DoubleSide,
+                        }),
+                        new THREE.MeshBasicMaterial({
+                            map: new THREE.TextureLoader().load(
+                                "./assets/img/skybox/elyvisions/sh_lf.png"
+                            ),
+                            side: THREE.DoubleSide,
+                        }),
+                    ];
+                    this.scale.set(850, 850, 850);
+                    this.position.set(0, 0, 100);
+                }
+                setDoubleSide(value) {
+                    this.doubleSide = value;
+                    if (value) {
+                        this.material.side = THREE.DoubleSide;
+                    } else {
+                        this.material.side = THREE.FrontSide;
+                    }
+                }
+                setOnFloor() {
+                    // this.geometry.computeBoundingBox();
+                    // const bBox = this.geometry.boundingBox;
+                    // this.position.y = -bBox.min.y;
+                    this.position.y = 250;
+                }
+            }
+
             class Scenary extends THREE.Group {
                 constructor(size = 1000) {
                     super();
@@ -1123,6 +1200,9 @@
                     this.trafficLight2 = new TrafficLightPoly(8, 75);
                     this.trafficLight2.rotation.y = -90 * (Math.PI / 180);
 
+                    this.sky = new SkyBox();
+                    this.sky.setOnFloor();
+
                     this.wireframeBool = true;
                     this.textureBool = true;
                     this.wireframeTraffic = true;
@@ -1130,7 +1210,8 @@
 
                     // CHILDREN
                     this.add(this.axes);
-                    //this.add(this.floor);
+                    this.add(this.sky);
+                    this.add(this.floor);
                 }
                 setWireframeScene(value) {
                     this.buildings1.setWireframe(value);
