@@ -484,7 +484,8 @@
                     this.add(this.wire);
                 }
                 setWireframe(value = true) {
-                    this.solid.setVisible(value);
+                    //this.solid.setVisible(value);
+                    this.wire.visible = value;
                 }
                 setColor(hexColor) {
                     this.color = hexColor;
@@ -1216,25 +1217,38 @@
                     //scene.add(this);
                     this.position.set(x, 0, z);
                 }
+                setWireframe(value) {
+                    this.buildingLow1.setWireframe(value);
+                    this.buildingLow2.setWireframe(value);
+                    this.buildingLow3.setWireframe(value);
+                    this.buildingLow4.setWireframe(value);
+                    this.buildingLow4Floor.setWireframe(value);
+                }
             }
 
             class CompleteSceneHIGH extends THREE.Group {
                 constructor() {
                     super();
-                    this.buildingHIGH1 = new Buildings(42, -108);
+                    this.buildingsHIGH1 = new Buildings(42, -108);
 
-                    this.buildingHIGH2 = new Buildings(42, 140);
+                    this.buildingsHIGH2 = new Buildings(42, 140);
 
-                    this.buildingHIGH3 = new Buildings(-49, 198);
-                    this.buildingHIGH3.rotation.y = 180 * (Math.PI / 180);
+                    this.buildingsHIGH3 = new Buildings(-49, 198);
+                    this.buildingsHIGH3.rotation.y = 180 * (Math.PI / 180);
 
-                    this.buildingHIGH4 = new Buildings(-49, -50);
-                    this.buildingHIGH4.rotation.y = 180 * (Math.PI / 180);
+                    this.buildingsHIGH4 = new Buildings(-49, -50);
+                    this.buildingsHIGH4.rotation.y = 180 * (Math.PI / 180);
 
-                    this.add(this.buildingHIGH1);
-                    this.add(this.buildingHIGH2);
-                    this.add(this.buildingHIGH3);
-                    this.add(this.buildingHIGH4);
+                    this.add(this.buildingsHIGH1);
+                    this.add(this.buildingsHIGH2);
+                    this.add(this.buildingsHIGH3);
+                    this.add(this.buildingsHIGH4);
+                }
+                setWireframe(value) {
+                    this.buildingsHIGH1.setWireframe(value);
+                    this.buildingsHIGH2.setWireframe(value);
+                    this.buildingsHIGH3.setWireframe(value);
+                    this.buildingsHIGH4.setWireframe(value);
                 }
             }
 
@@ -1253,6 +1267,12 @@
                     this.add(this.buildingsCube3);
                     this.add(this.buildingsCube4);
                 }
+                setWireframe(value) {
+                    this.buildingsCube1.setWireframe(value);
+                    this.buildingsCube2.setWireframe(value);
+                    this.buildingsCube3.setWireframe(value);
+                    this.buildingsCube4.setWireframe(value);
+                }
             }
 
             class ScenaryLOD extends THREE.LOD {
@@ -1269,6 +1289,10 @@
                     // CHILDREN
                     this.addLevel(this.high, 250);
                     this.addLevel(this.low, 450);
+                }
+                setWireframe(value) {
+                    this.low.setWireframe(value);
+                    this.high.setWireframe(value);
                 }
             }
 
@@ -1305,17 +1329,15 @@
                     this.add(this.floor);
                 }
                 setWireframeScene(value) {
-                    this.buildings1.setWireframe(value);
+                    /*this.buildings1.setWireframe(value);
                     this.buildings2.setWireframe(value);
                     this.buildings3.setWireframe(value);
-                    this.buildings4.setWireframe(value);
+                    this.buildings4.setWireframe(value);*/
+                    this.lodElements.setWireframe(value);
                     this.trafficLight1.setWireframe(value);
                     this.trafficLight2.setWireframe(value);
                     this.road1.setWireframe(value);
                     this.road2.setWireframe(value);
-                }
-                printLevel() {
-                    console.log(this.lodElements.getCurrentLevel());
                 }
             }
         </script>
